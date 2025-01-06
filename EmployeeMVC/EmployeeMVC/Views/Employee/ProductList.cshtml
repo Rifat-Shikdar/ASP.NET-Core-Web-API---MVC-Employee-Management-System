@@ -1,0 +1,45 @@
+﻿@model List<EmployeeMVC.Models.Product>
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h1>Product List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Unit Name</th>
+            <th>Code</th>
+            <th>Product Barcode</th>
+            <th>Brand Name</th>
+            <th>Color</th>
+            <th>Last Purchase Date</th>
+            <th>Last Purchase Supplier</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Stock</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr id="product-@product.Id">
+                <td>@product.Name</td>
+                <td>@product.CategoryName</td>
+                <td>@product.UnitName</td>
+                <td>@product.Code</td>
+                <td>@product.ProductBarcode</td>
+                <td>@product.BrandName</td>
+                <td>@product.ColorName</td>
+                <td>@product.LastPurchaseDate</td>
+                <td>@product.LastPurchaseSupplier</td>
+                <td>@product.Type</td>
+                <td>@product.Price</td>
+                <td>@product.stock</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,63 @@
+﻿@model EmployeeMVC.Models.Employee
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<h1>Edit Employee</h1>
+
+<form id="editEmployeeForm">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DepartmentId"></label>
+        <input asp-for="DepartmentId" class="form-control" required />
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DesignationId"></label>
+        <input asp-for="DesignationId" class="form-control" required />
+        <span asp-validation-for="DesignationId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Update</button>
+</form>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#editEmployeeForm").submit(function (event) {
+            event.preventDefault(); 
+
+            var employeeData = {
+                EmployeeId: @Model.EmployeeId,
+                Name: $("input[name='Name']").val(),
+                DepartmentId: $("input[name='DepartmentId']").val(),
+                DesignationId: $("input[name='DesignationId']").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Edit", "Employee")',
+                data: JSON.stringify(employeeData),
+                contentType: "application/json",
+                success: function (response) {
+                    if (response.success) {
+                        window.location.href = '@Url.Action("Index", "Employee")';
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while updating the employee.");
+                }
+            });
+        });
+    });
+</script>
